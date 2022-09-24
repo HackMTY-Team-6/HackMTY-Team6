@@ -4,10 +4,20 @@ import RoutesAvailable from "./components/RoutesAvailable";
 import "./App.css";
 import UserProvider from "./components/UserContext";
 
+const queryClient = new QueryClient();
+
 function App() {
 
   return (
-    <div>Hola</div>
+    <div>
+      <QueryClientProvider client={queryClient}>
+          <UserProvider>
+            <BrowserRouter>
+              <RoutesAvailable />
+            </BrowserRouter>
+          </UserProvider>
+        </QueryClientProvider>
+    </div>
   )
 }
 

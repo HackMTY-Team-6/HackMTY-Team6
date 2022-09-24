@@ -1,6 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "./UserContext";
+import Login from "./Login";
+import Register from "./Register";
+import Home from "./Home";
 
 const RoutesAvailable = () => {
     const { user } = useContext(UserContext);
