@@ -7,6 +7,11 @@ import { UserContext } from "./UserContext";
 
 import { API_URL, SESSION_KEY } from "../lib/constants";
 
+interface Values {
+  email: string;
+  password: string;
+}
+
 const Login = () => {
 
   const [submitMessage, setSubmitMessage] = useState(null);
@@ -35,16 +40,16 @@ const Login = () => {
   return (
     <div><Formik
       initialValues={{
-        username: "",
+        email: "",
         password: "",
       }}
       onSubmit={(values: Values, { resetForm }) => {
         handleLogin(values, () => resetForm());
       }}
     >
-      <Form style={styles.form}>
-        <div style={styles.field}>
-          <label className="block" htmlFor="username">
+      <Form style={{}}>
+        <div style={{}}>
+          <label className="" htmlFor="username">
             Username
           </label>
           <Field
@@ -55,7 +60,7 @@ const Login = () => {
           />
         </div>
 
-        <div className="block mb-5" style={styles.field}>
+        <div className="block mb-5" style={{}}>
           <label htmlFor="password">Password</label>
           <Field
             className="block w-full p-1 rounded-sm border-2"
