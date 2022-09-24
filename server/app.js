@@ -6,8 +6,11 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-// Routes
 
-// app.use("/user", require("./routes/user.routes"));
+app.get('/test',(req,res)=>{
+    res.send("Si sirve");
+    
+    });
 
 module.exports = app;
+
