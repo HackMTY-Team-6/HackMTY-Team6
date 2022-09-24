@@ -58,6 +58,63 @@ app.post("/login", async (req,res)=>{
     }
 });
 
+app.post("/newPeticion", async (req,res)=>{
+    const Peticion=Parse.Object.extend("Peticiones")
+    const newPeticion=new Peticion();
+
+    const userPointer={
+        __type: "Pointer",
+        className: "_User",
+        objectId: req.body.userID,
+    };
+
+    const peticion_info={
+        userID:userPointer,
+        lugarParaRecibir:req.body.lugarParaRecibir
+    };
+
+
+    const peticionPointer=await newPeticion.save(peticion_info, {
+        success:(obj)=>{
+            return obj;
+        },
+        error:(err)=>{
+            return err;
+        }
+    });
+
+    res.send(peticionPointer);
+
+});
+
+app.post("/newDonacion", async (req,res)=>{
+    const Donacion=Parse.Object.extend("Donaciones")
+    const newDonacion=new Donacion();
+
+    const userPointer={
+        __type: "Pointer",
+        className: "_User",
+        objectId: req.body.userID,
+    };
+
+
+    const donacion_info={
+        userID:userPointer,
+        aproved:req.body.aproved
+    };
+
+    const donacionPointer=await newDonacion.save(donacion_info, {
+        success:(obj)=>{
+            return obj;
+        },
+        error:(err)=>{
+            return err;
+        }
+    });
+
+    res.send(donacionPointer);
+});
+
 
 module.exports = app;
 
