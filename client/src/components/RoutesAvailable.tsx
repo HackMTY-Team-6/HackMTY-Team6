@@ -3,10 +3,8 @@ import { useContext } from "react";
 import { UserContext } from "./UserContext";
 import Login from "./Login";
 import Register from "./Register";
-import Home from "./Home";
 import PeticionForm from "./PeticionForm";
 import Donar from "./Donar";
-import Feed from "./Feed";
 import PetitionsFeed from "./PetitionsFeed";
 import PetitionForm from "./PetitionForm";
 import PetitionView from "./PetitionView";
@@ -33,7 +31,6 @@ const RoutesAvailable = () => {
           <Route path="/donar" element={<Donar />} />
           <Route path="/peticion" element={<PetitionForm />} />
           <Route path="/feed" element={<PetitionsFeed />} />
-          <Route path="/home2" element={<PetitionView />} />
           <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>
       </div>
