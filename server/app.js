@@ -183,14 +183,36 @@ app.get("/peticionesPorTipoSangre", async (req,res)=>{
 app.get("/userInfoWithID", async (req,res)=>{
     const User = Parse.Object.extend("User");
     const query = new Parse.Query(User);
-    // const userPointer={
-    //     __type: "Pointer",
-    //     className: "_User",
-    //     objectId: req.body.userID,
-    // };
     query.equalTo("objectId", req.body.userID);
     const result=await query.find();
     res.send(result);
+});
+
+
+// app.get("/userInfoWithSessionToken", async (req,res)=>{
+//     const sesh = Parse.Object.extend("Session");
+//     const query = new Parse.Query(sesh);
+//     query.equalTo("sessionToken", req.body.sessionToken);
+//     const sessionInfo=await query.find();
+//     const userPointer={
+//         __type: "Pointer",
+//         className: "_User",
+//         objectId: sessionInfo[0].userID,
+//     };
+//     res.send(sessionInfo);
+
+// })
+
+app.get("/emailsWithBloodType", async (req,res)=>{
+    const User = Parse.Object.extend("User");
+    const query = new Parse.Query(User);
+    query.equalTo("tipoSangre", req.body.tipoSangre);
+    const result=await query.find();
+    const emailList=[];
+    for (const userInfo of result){
+        emailList.push(userInfo.get("emailPublico"));
+    }
+    res.send(emailList);
 });
 
 module.exports = app;
