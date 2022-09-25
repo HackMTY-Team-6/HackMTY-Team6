@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, SESSION_KEY } from "../lib/constants";
 
@@ -7,6 +7,21 @@ interface Props {
   userID: string;
   date: string;
   place: string;
+  handleSetCurrentPetition: (petitionID: string) => void;
+}
+
+interface UserID {
+  __type: string;
+  className: string;
+  objectId: string;
+}
+
+interface Petition {
+  userID: UserID;
+  lugarParaRecibir: string;
+  createdAt: string;
+  updatedAt: string;
+  objectId: string;
 }
 
 interface User {
@@ -18,7 +33,7 @@ interface User {
   tipoSangre: string;
 }
 
-function PetitionCard({ petitionID, userID, date, place }: Props) {
+function PetitionCard({ petitionID, userID, date, place, handleSetCurrentPetition }: Props) {
   const [user, setUser] = useState<User>();
   useEffect(() => {
     const getUserById = async (userID: string) => {
@@ -37,6 +52,7 @@ function PetitionCard({ petitionID, userID, date, place }: Props) {
       block p-6 max-w-sm bg-white rounded-lg border 
       border-gray-200 shadow-md hover:bg-gray-100
       cursor-pointer relative"
+      onClick={() => handleSetCurrentPetition(petitionID)}
     >
       <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
         {user?.nombreCompleto}
