@@ -21,27 +21,26 @@ const Register = () => {
 
   // Handlers
   const handleRegister = (values: Values, callback: () => void) => {
-    // axios
-    //   .post(`${API_URL}/newUser`, {
-    //     email: values.email,
-    //     password: values.password,
-    //     emailPublico: values.email,
-    //     nombreCompleto: values.nombreCompleto,
-    //     telefono: values.telefono,
-    //     tipoSangre: values.tipoSangre,
-    //     estado: values.estado,
-    //     ciudad: values.ciudad,
-    //   })
-    //   .then((response) => {
-    //     setSubmitMessage(response.data.message);
-    //     callback();
-    //   })
-    //   .catch((error) => {
-    //     setSubmitMessage(error.response.data.message);
-    //   });
-    console.log(values)
-    // alert("User created succesfully!")
-    // navigate("./login")
+    axios
+      .post(`${API_URL}/newUser`, {
+        email: values.email,
+        password: values.password,
+        emailPublico: values.email,
+        nombreCompleto: values.nombreCompleto,
+        telefono: values.telefono,
+        tipoSangre: values.tipoSangre,
+        estado: values.estado,
+        ciudad: values.ciudad,
+      })
+      .then((response) => {
+        setSubmitMessage(response.data.message);
+        callback();
+      })
+      .catch((error) => {
+        setSubmitMessage(error.response.data.message);
+      });
+    alert("User created succesfully!")
+    navigate("./login")
   };
 
   return (
@@ -163,7 +162,7 @@ const Register = () => {
               />
             </div>
 
-            <div className="bg-red-400 w-fit px-3 py-2 m-auto mt-5 rounded-md transform transition duration-500 hover:scale-110 shadow-md">
+            <div className="bg-red-400 w-fit px-5 py-2 m-auto mt-5 rounded-md transform transition duration-500 hover:scale-110 shadow-md">
               <button
                 className=" text-white font-medium "
                 type="submit"
