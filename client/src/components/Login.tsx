@@ -38,7 +38,8 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full p-[250px]">
+    <div className="w-fit mx-auto p-[25px]">
+      <img className="h-48 mx-auto mb-4" src= "../../public/LogoBloodManager.svg"/>
       <div className="bg-slate-50 w-[600px] m-auto p-[20px] rounded-md shadow-lg">
         <div className="text-center">
           <h1 className="mx-auto text-7xl font-semibold text-red-400">Login</h1>

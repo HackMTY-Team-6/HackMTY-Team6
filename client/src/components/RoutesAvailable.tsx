@@ -10,6 +10,7 @@ import Feed from "./Feed";
 import PetitionsFeed from "./PetitionsFeed";
 import PetitionForm from "./PetitionForm";
 import PetitionView from "./PetitionView";
+import TopBar from "./TopBar";
 
 const RoutesAvailable = () => {
   const { user } = useContext(UserContext);
@@ -26,6 +27,7 @@ const RoutesAvailable = () => {
   } else {
     return (
       <div>
+        <TopBar />
         <Routes>
           <Route path="/home" element={<PeticionForm />} />
           <Route path="/donar" element={<Donar />} />

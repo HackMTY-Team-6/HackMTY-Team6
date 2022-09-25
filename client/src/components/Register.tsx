@@ -39,17 +39,21 @@ const Register = () => {
       .catch((error) => {
         setSubmitMessage(error.response.data.message);
       });
-    alert("User created succesfully!")
-    navigate("./login")
+    alert("User created succesfully!");
+    navigate("./login");
   };
 
   return (
-    <div className="w-full p-[100px]">
-      <div
-        className="bg-slate-50 w-[600px] m-auto p-[20px] rounded-md shadow-lg"
-      >
+    <div className="w-full p-[25px]">
+      <img
+        className="h-48 mx-auto mb-4"
+        src="../../public/LogoBloodManager.svg"
+      />
+      <div className="bg-slate-50 w-[600px] m-auto p-[20px] rounded-md shadow-lg">
         <div className="text-center">
-          <h1 className="mx-auto text-7xl font-semibold text-red-400">Registro</h1>
+          <h1 className="mx-auto text-7xl font-semibold text-red-400">
+            Registro
+          </h1>
         </div>
 
         <Formik
@@ -61,15 +65,17 @@ const Register = () => {
             telefono: "",
             tipoSangre: "",
             estado: "",
-            ciudad: ""
+            ciudad: "",
           }}
           onSubmit={(values: Values, { resetForm }) => {
             handleRegister(values, () => resetForm());
           }}
         >
-          <Form >
+          <Form>
             <div className="mt-4">
-              <label htmlFor="email" className="block">Email</label>
+              <label htmlFor="email" className="block">
+                Email
+              </label>
               <Field
                 className="bg-white p-2 w-full"
                 id="email"
@@ -126,7 +132,9 @@ const Register = () => {
                 id="tipoSangre"
                 name="tipoSangre"
               >
-                <option value="" disabled selected>Select your option</option>
+                <option value="" disabled selected>
+                  Select your option
+                </option>
                 <option value="A+">A+</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>
@@ -163,10 +171,7 @@ const Register = () => {
             </div>
 
             <div className="bg-red-400 w-fit px-5 py-2 m-auto mt-5 rounded-md transform transition duration-500 hover:scale-110 shadow-md">
-              <button
-                className=" text-white font-medium "
-                type="submit"
-              >
+              <button className=" text-white font-medium " type="submit">
                 Register
               </button>
             </div>
@@ -174,9 +179,17 @@ const Register = () => {
         </Formik>
         {submitMessage && <p>{submitMessage}</p>}
         <p className="text-center">or</p>
-        <p className="text-center">Already have an account? <span className="text-red-400 cursor-pointer underline " onClick={() => navigate("/login")}>Login</span></p>
+        <p className="text-center">
+          Already have an account?{" "}
+          <span
+            className="text-red-400 cursor-pointer underline "
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </span>
+        </p>
       </div>
-    </div >
+    </div>
   );
 };
 
