@@ -18,7 +18,7 @@ const PeticionForm = () => {
                 </div>
 
                 <div className='bg-slate-100 h-[200px] w-[350px] text-center shadow-lg transform transition duration-500 hover:scale-110 cursor-pointer hover:border-l-red-500 hover:border-l-8 rounded-lg'
-                    onClick={() => navigate("/solicitar")}
+                    onClick={() => navigate("/peticion")}
                 >
                     <BiDonateHeart className='text-8xl mx-auto mt-5' />
                     <p className='font-semibold mt-5 text-lg'>Pedir donación</p>
