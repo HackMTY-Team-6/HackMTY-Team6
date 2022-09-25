@@ -6,6 +6,7 @@ import Register from "./Register";
 import Home from "./Home";
 import PeticionForm from "./PeticionForm";
 import Donar from "./Donar";
+import Feed from "./Feed";
 
 const RoutesAvailable = () => {
   const { user } = useContext(UserContext);
@@ -25,6 +26,7 @@ const RoutesAvailable = () => {
         <Routes>
           <Route path="/home" element={<PeticionForm />} />
           <Route path="/donar" element={<Donar />} />
+          <Route path="/feed" element={<Feed />} />
           <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>
       </div>
