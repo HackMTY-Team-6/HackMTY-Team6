@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const Parse = require("./utils/parse_config");
 
+const userTable="Usuarios";
 
 app.use(express.json());
 app.use(cors());
@@ -16,15 +17,47 @@ app.get('/test',(req,res)=>{
 
 app.get('/test2', async (req,res)=> {
 
-    const Usuarios = Parse.Object.extend("Usuarios");
+    const Usuarios = Parse.Object.extend(userTable);
     const query = new Parse.Query(Usuarios);
     const response=await query.find();
     //console.log(response);
     res.send(response);
 
-
-
 });
+
+app.post("/newUser", async (req,res)=>{
+    //req.body.email
+
+    //res.send(req.body.email);
+    const user = new Parse.User();
+    user.set("username", req.body.email)
+    user.set("email", req.body.email)
+    user.set("password", req.body.password)
+    user.set("emailPublico", req.body.email)
+    user.set("nombreCompleto",req.body.nombreCompleto)
+    user.set("telefono", req.body.telefono)
+    user.set("tipoSangre", req.body.tipoSangre)
+    user.set("estado", req.body.estado)
+    user.set("ciudad",req.body.ciudad)
+
+    try{
+        await user.signUp();
+        res.send({ message: "User created!", status: "success", payload: body });
+
+    }catch(err){
+        res.send((400, err));
+    }  
+});
+
+app.post("/login", async (req,res)=>{
+    try{
+        const user= await Parse.User.logIn(req.body.email,req.body.password);
+        res.send({ message: "User logged!", status: "success", payload: user });
+    }catch(err){
+        res.send((400,err));
+    }
+});
+
 
 module.exports = app;
 
