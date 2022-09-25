@@ -175,5 +175,23 @@ app.get("/peticionesPorTipoSangre", async (req,res)=>{
 
 });
 
+//session token
+
+
+//with user id
+
+app.get("/userInfoWithID", async (req,res)=>{
+    const User = Parse.Object.extend("User");
+    const query = new Parse.Query(User);
+    // const userPointer={
+    //     __type: "Pointer",
+    //     className: "_User",
+    //     objectId: req.body.userID,
+    // };
+    query.equalTo("objectId", req.body.userID);
+    const result=await query.find();
+    res.send(result);
+});
+
 module.exports = app;
 
