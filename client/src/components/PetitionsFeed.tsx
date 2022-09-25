@@ -32,7 +32,7 @@ function PetitionsFeed() {
     getPetitions(tipoSangre);
   }, []);
 
-  const [currentPetition, setCurrentPetition] = useState<string>()
+  const [currentPetition, setCurrentPetition] = useState<string>("")
   const [isOpen, setIsOpen] = useState(false)
 
   const handleSetCurrentPetition = (petitionID: string) => {
@@ -63,8 +63,8 @@ function PetitionsFeed() {
       <div>
         {petitionsElements}
       </div>
-      <div className="absolute bg-white border-2 left-0 right-0 mx-auto mt-5 w-[700px]">
-        {isOpen && <PetitionModal handleCloseModal={handleCloseModal} />}
+      <div className="">
+        {isOpen && <PetitionModal handleCloseModal={handleCloseModal} petitionID={currentPetition} />}
       </div>
     </div>
   )
