@@ -54,7 +54,7 @@ app.post("/login", async (req,res)=>{
         const user= await Parse.User.logIn(req.body.email,req.body.password);
         res.send({ message: "User logged!", status: "success", payload: user });
     }catch(err){
-        res.send((400,err));
+        res.status(404).send(err)
     }
 });
 

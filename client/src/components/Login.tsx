@@ -13,7 +13,6 @@ interface Values {
 }
 
 const Login = () => {
-
   const [submitMessage, setSubmitMessage] = useState(null);
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
@@ -21,12 +20,13 @@ const Login = () => {
   // Handlers
   const handleLogin = (values: any, callback: () => void) => {
     axios
-      .post(`${API_URL}/user/login`, {
-        username: values.username,
-        password: values.password,
+      .post(`${API_URL}/login`, {
+        "email": values.email,
+        "password": values.password,
       })
       .then((response) => {
         setSubmitMessage(response.data.message);
+        console.log(response);
         localStorage.setItem(SESSION_KEY, response.data.payload.sessionToken);
         setUser(response.data.payload.sessionToken);
         callback();
@@ -38,67 +38,64 @@ const Login = () => {
   };
 
   return (
-    <div><Formik
-      initialValues={{
-        email: "",
-        password: "",
-      }}
-      onSubmit={(values: Values, { resetForm }) => {
-        handleLogin(values, () => resetForm());
-      }}
-    >
-      <Form style={{}}>
-        <div style={{}}>
-          <label className="" htmlFor="username">
-            Username
-          </label>
-          <Field
-            className="block mb-5 w-full p-1 rounded-sm border-2"
-            id="username"
-            name="username"
-            placeholder="Username"
-          />
-        </div>
-
-        <div className="block mb-5" style={{}}>
-          <label htmlFor="password">Password</label>
-          <Field
-            className="block w-full p-1 rounded-sm border-2"
-            id="password"
-            name="password"
-            placeholder="Password"
-            type="password"
-          />
-          {submitMessage && (
-            <p className=" text-red-600">{submitMessage}</p>
-          )}
-        </div>
-
-        <div>
-          <div className="mx-auto w-fit">
-            <button
-              className="bg-primary p-2 px-3 w-[150px] rounded-md text-white font-medium transition ease-in-out hover:scale-110 duration-300"
-              type="submit"
-            >
-              Enter
-            </button>
-            <div className="flex m-auto justify-between items-center mt-4">
-              <hr className="border-[1px] w-[50px]" />
-              <p className="text-gray-200 font-bold">Or</p>
-              <hr className="border-[1px] w-[50px]" />
-            </div>
-            <button
-              className="bg-primary p-2 px-3 w-[150px] rounded-md text-white font-medium mt-4 transition ease-in-out hover:scale-110 duration-300"
-              type="button"
-              onClick={() => navigate("/register")}
-            >
-              Sign Up
-            </button>
+    <div>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        onSubmit={(values: Values, { resetForm }) => {
+          handleLogin(values, () => resetForm());
+        }}
+      >
+        <Form style={{}}>
+          <div style={{}}>
+            <label className="" htmlFor="email">
+              email
+            </label>
+            <Field
+              className=""
+              id="email"
+              name="email"
+              placeholder="Correo"
+            />
           </div>
-        </div>
-      </Form>
-    </Formik></div>
-  )
-}
 
-export default Login
+          <div className="" style={{}}>
+            <label htmlFor="password">Contraseña</label>
+            <Field
+              className=""
+              id="password"
+              name="password"
+              placeholder="Password"
+              type="password"
+            />
+            {submitMessage && <p className="">{submitMessage}</p>}
+          </div>
+
+          <div>
+            <div className="">
+              <button className="" type="submit">
+                Enter
+              </button>
+              <div className="">
+                <hr className="" />
+                <p className="">Or</p>
+                <hr className="" />
+              </div>
+              <button
+                className=""
+                type="button"
+                onClick={() => navigate("/register")}
+              >
+                Sign Up
+              </button>
+            </div>
+          </div>
+        </Form>
+      </Formik>
+    </div>
+  );
+};
+
+export default Login;
