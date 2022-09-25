@@ -10,22 +10,6 @@ const userTable="Usuarios";
 app.use(express.json());
 app.use(cors());
 
-
-app.get('/test',(req,res)=>{
-    res.send("Si sirve");
-
-    });
-
-app.get('/test2', async (req,res)=> {
-
-    const Usuarios = Parse.Object.extend(userTable);
-    const query = new Parse.Query(Usuarios);
-    const response=await query.find();
-    //console.log(response);
-    res.send(response);
-
-});
-
 app.post("/newUser", async (req,res)=>{
     //req.body.email
 
@@ -134,12 +118,12 @@ app.post("/newDonacion", async (req,res)=>{
 });
 
 
-app.get("/peticionesPorTipoSangre", async (req,res)=>{
+app.get("/peticionesPorTipoSangre/:tipoSangre", async (req,res)=>{
     //req.body.bloodtype="O-"
     const User = Parse.Object.extend("User");
     const Peticion=Parse.Object.extend("Peticiones");
     const query = new Parse.Query(User);
-    query.equalTo("tipoSangre", req.body.tipoSangre);
+    query.equalTo("tipoSangre", req.params.tipoSangre);
     const resultado=await query.find();
     const resultArray=[];
 
@@ -197,10 +181,10 @@ app.get("/peticionesPorTipoSangre", async (req,res)=>{
 
 //with user id
 
-app.get("/userInfoWithID", async (req,res)=>{
+app.get("/userInfoWithID/:userID", async (req,res)=>{
     const User = Parse.Object.extend("User");
     const query = new Parse.Query(User);
-    query.equalTo("objectId", req.body.userID);
+    query.equalTo("objectId", req.params.userID);
     const result=await query.find();
     res.send(result);
 });
