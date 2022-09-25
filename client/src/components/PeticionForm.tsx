@@ -54,7 +54,7 @@ const PeticionForm = () => {
   );
 
   const petition = <PetitionView />;
-  return <div>{hasPetition ? petition : options}</div>;
+  return <div>{hasPetition === undefined ? petition : options}</div>;
 };
 
 export default PeticionForm;

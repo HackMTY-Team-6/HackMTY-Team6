@@ -56,7 +56,7 @@ function PetitionView() {
           </h1>
           <p className="text-2xl">
             {stringCountMessages[0]}
-            <span className="font-bold text-red-600">{count}</span>
+            <span className="font-bold text-red-600"> {count} </span>
             {stringCountMessages[1]}
           </p>
           <p>{stringCountMessages[2]}</p>
