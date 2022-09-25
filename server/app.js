@@ -214,6 +214,27 @@ app.get("/emailsWithBloodType", async (req,res)=>{
     res.send(emailList);
 });
 
+app.post("/aumentarViews", async (req,res)=>{
+    const peticionID=req.body.petitionID;
+    const Peticiones=Parse.Object.extend("Peticiones")
+    var query = new Parse.Query(Peticiones);
+    query.equalTo("objectId", peticionID);
+    const result=await query.first();
+    console.log(result);
+    result.set("views", result.get("views")+1);
+    result.save();
+    res.send(200);
+
+});
+
+app.get("/petitionInfo/:petitionID", async (req,res)=>{
+    const Peticiones=Parse.Object.extend("Peticiones")
+    var query = new Parse.Query(Peticiones);
+    query.equalTo("objectId", req.params.petitionID);
+    const result=await query.find();
+    res.send(result);
+});
+
 
 
 module.exports = app;
