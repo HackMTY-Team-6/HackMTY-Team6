@@ -7,7 +7,7 @@ const PeticionForm = () => {
     const navigate = useNavigate();
 
     return (
-        <div className='p-[350px] mx-auto'>
+        <div className='px-[350px] py-[100px] mx-auto'>
             <div className='flex gap-9 justify-between'>
 
                 <div className='bg-slate-100 h-[200px] w-[350px] text-center shadow-lg transform transition duration-500 hover:scale-110 cursor-pointer hover:border-l-red-500 hover:border-l-8 rounded-lg'
