@@ -216,7 +216,6 @@ app.get("/userInfoWithSessionToken", async (req,res)=>{
     query.equalTo("objectId", userid);
     const result=await query.find();
     res.send(result);
-
 });
 
 module.exports = app;
