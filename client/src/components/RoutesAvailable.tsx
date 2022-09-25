@@ -3,12 +3,11 @@ import { useContext } from "react";
 import { UserContext } from "./UserContext";
 import Login from "./Login";
 import Register from "./Register";
-import Home from "./Home";
 import PeticionForm from "./PeticionForm";
 import Donar from "./Donar";
-import Feed from "./Feed";
 import PetitionsFeed from "./PetitionsFeed";
 import PetitionForm from "./PetitionForm";
+import PetitionView from "./PetitionView";
 import TopBar from "./TopBar";
 
 const RoutesAvailable = () => {
