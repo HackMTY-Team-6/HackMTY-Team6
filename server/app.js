@@ -59,6 +59,21 @@ app.post("/login", async (req,res)=>{
     }
 });
 
+app.get("/*", async (req,res,next)=>{
+    const myToken = req.headers.authorization;
+    if (!myToken) {
+      req.user = null;
+      next();
+    } else {
+      const query = new Parse.Query(Parse.Session);
+      query.include(["user"]);
+      const results = await query.first({ sessionToken: myToken });
+      req.user = results.get("user");
+      next();
+    }
+
+});
+
 app.post("/newPeticion", async (req,res)=>{
     const Peticion=Parse.Object.extend("Peticiones")
     const newPeticion=new Peticion();
@@ -183,36 +198,24 @@ app.get("/peticionesPorTipoSangre", async (req,res)=>{
 app.get("/userInfoWithID", async (req,res)=>{
     const User = Parse.Object.extend("User");
     const query = new Parse.Query(User);
+    // const userPointer={
+    //     __type: "Pointer",
+    //     className: "_User",
+    //     objectId: req.body.userID,
+    // };
     query.equalTo("objectId", req.body.userID);
     const result=await query.find();
     res.send(result);
 });
 
 
-// app.get("/userInfoWithSessionToken", async (req,res)=>{
-//     const sesh = Parse.Object.extend("Session");
-//     const query = new Parse.Query(sesh);
-//     query.equalTo("sessionToken", req.body.sessionToken);
-//     const sessionInfo=await query.find();
-//     const userPointer={
-//         __type: "Pointer",
-//         className: "_User",
-//         objectId: sessionInfo[0].userID,
-//     };
-//     res.send(sessionInfo);
-
-// })
-
-app.get("/emailsWithBloodType", async (req,res)=>{
-    const User = Parse.Object.extend("User");
-    const query = new Parse.Query(User);
-    query.equalTo("tipoSangre", req.body.tipoSangre);
+app.get("/userInfoWithSessionToken", async (req,res)=>{
+    const user=req.user;
+    const userid=user.id;
+    const query = new Parse.Query(Parse.User);
+    query.equalTo("objectId", userid);
     const result=await query.find();
-    const emailList=[];
-    for (const userInfo of result){
-        emailList.push(userInfo.get("emailPublico"));
-    }
-    res.send(emailList);
+    res.send(result);
 });
 
 module.exports = app;
