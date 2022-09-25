@@ -59,6 +59,21 @@ app.post("/login", async (req,res)=>{
     }
 });
 
+app.get("/*", async (req,res,next)=>{
+    const myToken = req.headers.authorization;
+    if (!myToken) {
+      req.user = null;
+      next();
+    } else {
+      const query = new Parse.Query(Parse.Session);
+      query.include(["user"]);
+      const results = await query.first({ sessionToken: myToken });
+      req.user = results.get("user");
+      next();
+    }
+
+});
+
 app.post("/newPeticion", async (req,res)=>{
     const Peticion=Parse.Object.extend("Peticiones")
     const newPeticion=new Peticion();
@@ -191,6 +206,17 @@ app.get("/userInfoWithID", async (req,res)=>{
     query.equalTo("objectId", req.body.userID);
     const result=await query.find();
     res.send(result);
+});
+
+
+app.get("/userInfoWithSessionToken", async (req,res)=>{
+    const user=req.user;
+    const userid=user.id;
+    const query = new Parse.Query(Parse.User);
+    query.equalTo("objectId", userid);
+    const result=await query.find();
+    res.send(result);
+
 });
 
 module.exports = app;
