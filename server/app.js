@@ -275,6 +275,14 @@ app.get("/petitionInfo/:petitionID", async (req,res)=>{
     res.send(result);
 });
 
+app.get("/userPetitions/:userID", async (req,res)=>{
+    const PeticionesActivas=Parse.Object.extend("PeticionesActivas")
+    var query = new Parse.Query(PeticionesActivas);
+    query.equalTo("userID", req.params.userID);
+    const result=await query.first();
+    res.send(result);
+})
+
 
 
 module.exports = app;
