@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const fns = require('date-fns')
 const app = express();
 const cors = require("cors");
 const Parse = require("./utils/parse_config");
@@ -115,6 +116,64 @@ app.post("/newDonacion", async (req,res)=>{
     res.send(donacionPointer);
 });
 
+
+app.get("/peticionesPorTipoSangre", async (req,res)=>{
+    //req.body.bloodtype="O-"
+    const User = Parse.Object.extend("User");
+    const Peticion=Parse.Object.extend("Peticiones");
+    const query = new Parse.Query(User);
+    query.equalTo("tipoSangre", req.body.tipoSangre);
+    const resultado=await query.find();
+    const resultArray=[];
+
+    const promisedArray=[];
+
+    const currentDate=new Date();
+
+    
+
+    for(const usuarioResultado of resultado){
+        //console.log("-----------------------------");
+        //console.log(usuarioResultado);
+        const peticionQuery=new Parse.Query(Peticion);
+        const userPointer={
+            __type: "Pointer",
+            className: "_User",
+            objectId: usuarioResultado.id,
+        };
+        peticionQuery.equalTo("userID", userPointer);
+        const currUserPeticiones=peticionQuery.find();
+        promisedArray.push(currUserPeticiones);
+
+
+        // console.log(stringifiedDate);
+        // console.log(new Date("Sep 24 2022"));
+        //console.log(fns.format(parseISO(stringifiedDate, 'MM/dd/yyyy')));  
+    }
+
+    
+    const arregloLleno=await Promise.all(promisedArray).then((values) => {
+        return values;
+    });
+    
+    //console.log(arregloLleno);
+    for (const currentArreglo of arregloLleno){
+        for(const peticionResultado of currentArreglo){
+            const stringifiedDate=`${peticionResultado.get("createdAt")}`;
+            const dateArrays=stringifiedDate.split(" ")
+            const formatedDateString=`${dateArrays[1]} ${dateArrays[2]} ${dateArrays[3]}`
+            //console.log(formatedDateString);
+            const currentDate=new Date();
+            const dateDiff=fns.differenceInDays(currentDate, new Date(formatedDateString));
+            if(dateDiff<=30){
+                resultArray.push(peticionResultado);
+            }
+        }
+    }
+
+    res.send(resultArray);
+
+});
 
 module.exports = app;
 
