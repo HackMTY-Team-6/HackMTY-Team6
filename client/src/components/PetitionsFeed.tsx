@@ -59,11 +59,11 @@ function PetitionsFeed() {
   })
 
   return (
-    <div className="w-full flex">
+    <div className="w-full flex m-10">
       <div>
         {petitionsElements}
       </div>
-      <div className="">
+      <div className="ml-10">
         {isOpen && <PetitionModal handleCloseModal={handleCloseModal} petitionID={currentPetition} />}
       </div>
     </div>
