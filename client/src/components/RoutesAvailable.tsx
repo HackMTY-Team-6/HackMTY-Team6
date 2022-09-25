@@ -7,6 +7,8 @@ import Home from "./Home";
 import PeticionForm from "./PeticionForm";
 import Donar from "./Donar";
 import Feed from "./Feed";
+import PetitionsFeed from "./PetitionsFeed";
+import PetitionForm from "./PetitionForm";
 
 const RoutesAvailable = () => {
   const { user } = useContext(UserContext);
@@ -26,7 +28,8 @@ const RoutesAvailable = () => {
         <Routes>
           <Route path="/home" element={<PeticionForm />} />
           <Route path="/donar" element={<Donar />} />
-          <Route path="/feed" element={<Feed />} />
+          <Route path="/peticion" element={<PetitionForm />} />
+          <Route path="/feed" element={<PetitionsFeed />} />
           <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>
       </div>
