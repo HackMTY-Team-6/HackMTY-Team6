@@ -25,13 +25,44 @@ app.post("/newUser", async (req,res)=>{
     user.set("estado", req.body.estado)
     user.set("ciudad",req.body.ciudad)
 
+    
+
     try{
-        await user.signUp();
-        res.send({ message: "User created!", status: "success", payload: body });
+        const trial=await user.signUp();
+
+        const PeticionActiva=Parse.Object.extend("PeticionesActivas")
+        const newPeticion=new PeticionActiva();
+    
+        // const userPointer={
+        //     __type: "Pointer",
+        //     className: "_User",
+        //     objectId: trial.id,
+        // };
+
+                
+        const peticion_info={
+            userID:trial.id,
+        };
+    
+        const peticionPointer=await newPeticion.save(peticion_info, {
+            success:(obj)=>{
+                return obj;
+            },
+            error:(err)=>{
+                return err;
+            }
+        });
+
+    
+
+        res.send({ message: "User created!", status: "success", payload: req.body });
 
     }catch(err){
         res.send((400, err));
-    }  
+    }
+    
+    
+    
 });
 
 app.post("/login", async (req,res)=>{
@@ -84,6 +115,15 @@ app.post("/newPetition", async (req,res)=>{
             return err;
         }
     });
+    //Ajustar 'peticionActiva' de usuario
+    const PeticionesActivas=Parse.Object.extend("PeticionesActivas")
+    var query = new Parse.Query(PeticionesActivas);
+    query.equalTo("userID", req.body.userID);
+    const result=await query.first();
+    console.log(peticionPointer);
+    console.log(peticionPointer.id)
+    result.set("peticionID", peticionPointer.id);
+    result.save();
 
     res.send(peticionPointer);
 
@@ -212,6 +252,27 @@ app.get("/emailsWithBloodType", async (req,res)=>{
         emailList.push(userInfo.get("emailPublico"));
     }
     res.send(emailList);
+});
+
+app.post("/aumentarViews", async (req,res)=>{
+    const peticionID=req.body.petitionID;
+    const Peticiones=Parse.Object.extend("Peticiones")
+    var query = new Parse.Query(Peticiones);
+    query.equalTo("objectId", peticionID);
+    const result=await query.first();
+    console.log(result);
+    result.set("views", result.get("views")+1);
+    result.save();
+    res.send(200);
+
+});
+
+app.get("/petitionInfo/:petitionID", async (req,res)=>{
+    const Peticiones=Parse.Object.extend("Peticiones")
+    var query = new Parse.Query(Peticiones);
+    query.equalTo("objectId", req.params.petitionID);
+    const result=await query.find();
+    res.send(result);
 });
 
 
