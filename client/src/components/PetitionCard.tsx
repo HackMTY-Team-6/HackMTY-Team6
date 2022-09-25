@@ -32,11 +32,24 @@ function PetitionCard({ petitionID, userID, date, place }: Props) {
   }, []);
 
   return (
-    <div>
-      <h1>{user?.nombreCompleto} | {user?.tipoSangre}</h1>
-      <h2>{place}</h2>
-      <h2>Se necesita para {date}</h2>
-      <br/>
+    <div
+      className="
+      block p-6 max-w-sm bg-white rounded-lg border 
+      border-gray-200 shadow-md hover:bg-gray-100 
+      dark:bg-gray-800 dark:border-gray-700 
+      dark:hover:bg-gray-700 cursor-pointer relative"
+    >
+      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+        {user?.nombreCompleto}
+      </h5>
+      <p className="font-bold">{place}</p>
+      <p className="font-normal">
+        {user?.ciudad}, {user?.estado}
+      </p>
+      <p className="font-normal" style={{ borderBottom: "none" }}>
+        {date}
+      </p>
+      <p className="absolute top-1 right-2 ">🩸O-</p>
     </div>
   );
 }
