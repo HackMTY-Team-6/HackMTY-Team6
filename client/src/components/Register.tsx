@@ -132,6 +132,30 @@ const Register = () => {
               </Field>
             </div>
 
+            <div>
+              <label className="" htmlFor="estado">
+                Estado
+              </label>
+              <Field
+                className=""
+                id="estado"
+                name="estado"
+                placeholder="Estado"
+              />
+            </div>
+
+            <div>
+              <label className="" htmlFor="ciudad">
+                Ciudad
+              </label>
+              <Field
+                className=""
+                id="ciudad"
+                name="ciudad"
+                placeholder="Ciudad"
+              />
+            </div>
+
             <div className="">
               <button
                 className=""
