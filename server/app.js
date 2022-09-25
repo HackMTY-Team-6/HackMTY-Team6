@@ -75,7 +75,7 @@ app.use("/*", async (req,res, next)=>{
 });
 
 
-app.post("/newPeticion", async (req,res)=>{
+app.post("/newPetition", async (req,res)=>{
     const Peticion=Parse.Object.extend("Peticiones")
     const newPeticion=new Peticion();
 
@@ -87,7 +87,8 @@ app.post("/newPeticion", async (req,res)=>{
 
     const peticion_info={
         userID:userPointer,
-        lugarParaRecibir:req.body.lugarParaRecibir
+        lugarParaRecibir:req.body.lugarParaRecibir,
+        fecha:req.body.fecha
     };
 
 
