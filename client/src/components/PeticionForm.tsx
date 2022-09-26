@@ -22,7 +22,9 @@ const PeticionForm = () => {
           const uID = res.data[0].objectId;
 
           axios.get(`${API_URL}/userPetitions/${uID}`).then((res) => {
-            if (res.data) {
+            console.log(res.data.peticionID)
+            if (res.data.peticionID) {
+              console.log(res.data);
               setHasPetition(true);
             }
           });
@@ -54,7 +56,7 @@ const PeticionForm = () => {
   );
 
   const petition = <PetitionView />;
-  return <div>{hasPetition === undefined ? petition : options}</div>;
+  return <div>{hasPetition === true ? petition : options}</div>;
 };
 
 export default PeticionForm;
